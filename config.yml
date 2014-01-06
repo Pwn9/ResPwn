@@ -1,0 +1,13 @@
+# Which worlds should this plugin be enabled in? Worlds not in this list will be ignored
+enabled_worlds:
+  - example_world
+  - example_world_nether
+  
+# Respawn shield timer setting, set this to how long the player gets shield on respawn (in seconds)
+respawn_shield_timer: 20
+
+# If shielded player attacks an unshielded player or mob, the spawn shield is removed. 
+clear_on_attack: false
+
+# Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
+debug_log: false  
