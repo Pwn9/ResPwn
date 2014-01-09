@@ -1,6 +1,9 @@
 main: com.pwn9.ResPwn.ResPwn
 name: ResPwn
-version: 0.1
+version: 0.2
 author: tremor77
 description: Player respawn timer with various settings for gameplay.
 website: http://pwn9.com
+permissions:
+  respwn.shield: 
+    description: Gives permission to use respawn shield

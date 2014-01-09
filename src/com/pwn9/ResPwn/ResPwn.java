@@ -25,7 +25,7 @@ public class ResPwn extends JavaPlugin
 	public static Boolean clearOnAttack;
 	
 	// Setup respawn shield time player lists. 
-	public HashMap<String, Long> respawnShieldTimes = new HashMap<String, Long>();
+	public static HashMap<String, Long> respawnShieldTimes = new HashMap<String, Long>();
 	
 	public void onEnable() 
 	{
@@ -43,9 +43,9 @@ public class ResPwn extends JavaPlugin
 		    // Failed to submit the stats :-(
 		}
 	    
-		// Setup listeners'
+		// Setup listeners
 		new PlayerListener(this);
-		
+			
 		// Get data folder
 		ResPwn.dataFolder = getDataFolder();
 		
@@ -86,7 +86,7 @@ public class ResPwn extends JavaPlugin
 	}
 	
 	// Generic function to return the calculated time
-	public long calcTimer(Long time) 
+	public static long calcTimer(Long time) 
 	{
 		return System.currentTimeMillis() + time;
 	}
