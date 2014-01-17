@@ -9,5 +9,11 @@ respawn_shield_timer: 20
 # If shielded player attacks an unshielded player or mob, the spawn shield is removed. 
 clear_on_attack: false
 
+# The player's health level be on respawn - max 20
+respawn_health: 20
+
+# The player's hunger level be on respawn - max 20
+respawn_hunger: 20
+
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

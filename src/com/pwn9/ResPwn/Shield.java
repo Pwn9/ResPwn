@@ -4,15 +4,12 @@ import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class Shield 
 {
 	
-	public static void doShield(PlayerRespawnEvent e)
+	public static void doShield(Player p, World w)
 	{
-		// Init world event is taking place in.
-		World w = e.getRespawnLocation().getWorld();
 		
 		// We should check to see if plugin is enabled first.
 		if (!ResPwn.isEnabledIn(w.getName())) return; 
@@ -20,10 +17,7 @@ public class Shield
 		/*** We should also check to see what other config settings are set before adding player to the timer ***/
 		
 		// some code will go here...
-		
-		// Init the player as Player p to save some typing later
-		Player p = e.getPlayer();
-		
+
 		/*** Check against the player for more settings before adding player to the timer ***/
 		
 		// Check is player has permission to use shield
@@ -35,14 +29,19 @@ public class Shield
 		ResPwn.respawnShieldTimes.put(p.getName(), ResPwn.calcTimer(ResPwn.respawnShieldTimer));	
 		
 		// Log respawn event
-		ResPwn.logToFile("Player " + p.getDisplayName() + " respawn timer activated: " + ResPwn.respawnShieldTimer);
+		if (ResPwn.logEnabled) 
+		{
+			ResPwn.logToFile("Player " + p.getDisplayName() + " respawn timer activated: " + ResPwn.respawnShieldTimer);
+		}
 		
 		// Send them a message 
 		p.sendMessage("§cRespawn shield activated for §6" + ResPwn.respawnShieldTimer / 1000 + "§c seconds.");
+		
 	}
 	
 	public static boolean isShielded(EntityDamageByEntityEvent e)
 	{
+		
 		// Get the event world
 		World w = e.getDamager().getWorld();
 		
@@ -70,7 +69,7 @@ public class Shield
 		} 
 		else 
 		{
-			// attacker is NOT a player
+			// attacker is NOT a player - do we want to do anything with this knowledge?
 		}
 		
 		// Check if damage is done TO a player
@@ -80,51 +79,67 @@ public class Shield
 		}
 		else 
 		{
-			// victim is NOT a player
+			// victim is NOT a player - do we want to do anything with this knowledge?
 		}
 
 		boolean victimShield = false;
 		boolean attackerShield = false;
 		
-		// 1. Check if the VICTIM is in the respawn timer	
-        if(ResPwn.respawnShieldTimes.containsKey(victim.getName()) && (victim instanceof Player)) 
-        {
+		// 1. Check if the VICTIM is a PLAYER in the respawn timer
+		if (victim instanceof Player)
+		{
+			if(ResPwn.respawnShieldTimes.containsKey(victim.getName()))
+            {
 
-            Long respTime = ResPwn.respawnShieldTimes.get(victim.getName());
-            Long currTime = System.currentTimeMillis();
-            
-            if(respTime > currTime) 
-            {
-            	if (attacker instanceof Player)
-        		{
-            		victimShield = true;
-        			attacker.sendMessage("§c" + victim.getName() + " has respawn shield for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
-        		}	
-            }            	
-        }
-        
-		// 2. Check if ATTACKER is in the respawn timer
-        if(ResPwn.respawnShieldTimes.containsKey(attacker.getName()) && (attacker instanceof Player)) 
-        {
-        	
-            Long respTime = ResPwn.respawnShieldTimes.get(attacker.getName());
-            Long currTime = System.currentTimeMillis();
-                        
-            if((respTime > currTime) && (!ResPwn.clearOnAttack))
-            {
-            	attacker.sendMessage("§cRespawn shield on, no attacking for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
-            	attackerShield = true;
-            } 
-            else 
-            {
-                if(ResPwn.clearOnAttack) 
+                Long respTime = ResPwn.respawnShieldTimes.get(victim.getName());
+                Long currTime = System.currentTimeMillis();
+                
+                if(respTime > currTime) 
                 {
-                	ResPwn.respawnShieldTimes.remove(attacker.getName());
-                	attacker.sendMessage("§cYour respawn shield has been removed due to attacking!");
-                }
-            }
-        }
-        
+                	// Shield the victim from damage if they are in shielded mode
+                	victimShield = true;
+                	
+                	// If the attacker is a player, tell them their victim is shielded right now
+                	if (attacker instanceof Player)
+            		{
+            			attacker.sendMessage("§c" + victim.getName() + " has respawn shield for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+            		}	
+                }            	
+            }			
+		}
+
+		// 2. Check if ATTACKER is in the respawn timer
+		if (attacker instanceof Player)
+		{
+	        if(ResPwn.respawnShieldTimes.containsKey(attacker.getName())) 
+	        {
+	        	
+	            Long respTime = ResPwn.respawnShieldTimes.get(attacker.getName());
+	            Long currTime = System.currentTimeMillis();
+	             
+	            // If attacker is shielded AND clearonAttack is false then keep them shielded and give a warning
+	            if((respTime > currTime) && (!ResPwn.clearOnAttack))
+	            {
+	            	attacker.sendMessage("§cRespawn shield on, no attacking for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+	            	attackerShield = true;
+	            } 
+	            // If attacker is shielded AND clearonAttack is true, remove the shield and let them know
+	            else if (respTime > currTime)
+	            {
+	                if(ResPwn.clearOnAttack) 
+	                {
+	                	ResPwn.respawnShieldTimes.remove(attacker.getName());
+	                	attacker.sendMessage("§cYour respawn shield has been removed due to attacking!");
+	                }
+	            }
+	            // Shield time has run out, remove the shield, no need to say anything here
+	            else 
+	            {
+	            	ResPwn.respawnShieldTimes.remove(attacker.getName());
+	            }
+	        }			
+		}
+
         // 3. Tell the event listener if the event should be cancelled or not
         if (attackerShield && victimShield) 
         {

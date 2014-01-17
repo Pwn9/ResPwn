@@ -16,20 +16,41 @@ import com.pwn9.ResPwn.MetricsLite;
 
 public class ResPwn extends JavaPlugin 
 {
+	//for convenience, a reference to the instance of this plugin
+    public static ResPwn instance;	
+	
 	public static File dataFolder;
 	
-	// Init configurable values
+	/*** Init configurable values ***/
+	
+	// Get enabled worlds
 	public static List<String> enabledWorlds;
+	
+	// Get logging enabled
 	public static Boolean logEnabled;
+	
+	// Respawn timer config setting, default 20
 	public static long respawnShieldTimer = 20000;
+	
+	// Clear on attack
 	public static Boolean clearOnAttack;
+	
+	// Player health
+	public static int respawnHealth = 20;
+	
+	// Player hunger
+	public static int respawnHunger = 20;
+	
+	
+	/*** End configurable values ***/
 	
 	// Setup respawn shield time player lists. 
 	public static HashMap<String, Long> respawnShieldTimes = new HashMap<String, Long>();
 	
 	public void onEnable() 
 	{
-		
+		instance = this;
+		 
 		this.saveDefaultConfig();
 		
 		// Start Metrics
@@ -50,6 +71,7 @@ public class ResPwn extends JavaPlugin
 		ResPwn.dataFolder = getDataFolder();
 		
 		/*** Configurable Values ***/
+		
 		// Get enabled worlds
 		ResPwn.enabledWorlds = getConfig().getStringList("enabled_worlds");		
 		
@@ -62,6 +84,11 @@ public class ResPwn extends JavaPlugin
 		// Clear on attack
 		ResPwn.clearOnAttack = getConfig().getBoolean("clear_on_attack");
 		
+		// Player health
+		ResPwn.respawnHealth =  getConfig().getInt("respawn_health", 20);
+		
+		// Player hunger
+		ResPwn.respawnHunger =  getConfig().getInt("respawn_hunger", 20);
 	}
 	
 	public void onDisable() 
@@ -74,7 +101,7 @@ public class ResPwn extends JavaPlugin
 	{
 		return enabledWorlds.contains(world);
 	}	
-
+	
 	// Boolean to check if player is in the respawn timer
 	public boolean inShieldTimer(String player) 
 	{

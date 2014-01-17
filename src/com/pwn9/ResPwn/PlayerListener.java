@@ -1,5 +1,7 @@
 package com.pwn9.ResPwn;
 
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,10 +19,24 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent e)
 	{	
+		// Get the player, so we can send the player to the sub-functions
+		Player p = e.getPlayer();
+		
+		// Get the world of the event so we can send to the sub-functions
+		World w = e.getRespawnLocation().getWorld();
+		
+		// Check to see if plugin is even enabled in this world, if not, quit now yo.
+		if (!ResPwn.isEnabledIn(w.getName())) return; 
+		
 		// Check if player will get shielded on respawn
-		Shield.doShield(e);
+		Shield.doShield(p, w);
 		
 		// Other respawn events go here...
+		
+		Health.setResHealth(p, w);
+		
+		Health.setResHunger(p, w);
+		
 	}
 	
 	// Handle damage events, ignore cancelled for efficiency
