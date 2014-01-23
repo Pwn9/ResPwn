@@ -37,6 +37,10 @@ public class PlayerListener implements Listener
 		
 		Health.setResHunger(p, w);
 		
+		// Armor & Inventory Stuff
+		Inventory.ResArmor(p, w);
+		
+		
 	}
 	
 	// Handle damage events, ignore cancelled for efficiency
