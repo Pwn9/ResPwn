@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,9 +17,10 @@ import com.pwn9.ResPwn.MetricsLite;
 
 public class ResPwn extends JavaPlugin 
 {
-	//for convenience, a reference to the instance of this plugin
+	// For convenience, a reference to the instance of this plugin
     public static ResPwn instance;	
 	
+    // Get the datafolder
 	public static File dataFolder;
 	
 	/*** Init configurable values ***/
@@ -35,10 +37,8 @@ public class ResPwn extends JavaPlugin
 	// Clear on attack
 	public static Boolean clearOnAttack;
 	
-	// Player health
+	// Player health & hunger
 	public static int respawnHealth = 20;
-	
-	// Player hunger
 	public static int respawnHunger = 20;
 	
 	// Armor
@@ -46,20 +46,32 @@ public class ResPwn extends JavaPlugin
 	public static String respawnHelm = "none";
 	public static String respawnPants = "none";
 	public static String respawnPlate = "none";
+	// Armor enchant maps
+	public static Map<String, Object> respawnBootsEnchants = new HashMap<String, Object>();
+	public static Map<String, Object> respawnHelmEnchants = new HashMap<String, Object>();
+	public static Map<String, Object> respawnPantsEnchants = new HashMap<String, Object>();
+	public static Map<String, Object> respawnPlateEnchants = new HashMap<String, Object>();
 	
 	// Item in hand
 	public static String respawnWield = "none";
-	
+	public static Map<String, Object> respawnWieldEnchants = new HashMap<String, Object>();
 	
 	/*** End configurable values ***/
+	
+	/*** Init other mappings and variables ***/
 	
 	// Setup respawn shield time player lists. 
 	public static HashMap<String, Long> respawnShieldTimes = new HashMap<String, Long>();
 	
+	/*** End other values ***/
+	
+	// Things to do when the plugin starts
 	public void onEnable() 
 	{
+		// Create an instance of this, for some reason, I forget why.
 		instance = this;
 		 
+		// Get the config.yml stuffs
 		this.saveDefaultConfig();
 		
 		// Start Metrics
@@ -79,40 +91,17 @@ public class ResPwn extends JavaPlugin
 		// Get data folder
 		ResPwn.dataFolder = getDataFolder();
 		
-		/*** Configurable Values ***/
-		
-		// Get enabled worlds
-		ResPwn.enabledWorlds = getConfig().getStringList("enabled_worlds");		
-		
-		// Get logging enabled
-		ResPwn.logEnabled = getConfig().getBoolean("debug_log");
-		
-		// Respawn timer config setting, default 20
-		ResPwn.respawnShieldTimer = getConfig().getInt("respawn_shield_timer", 20) * 1000;
-		
-		// Clear on attack
-		ResPwn.clearOnAttack = getConfig().getBoolean("clear_on_attack");
-		
-		// Player health
-		ResPwn.respawnHealth =  getConfig().getInt("respawn_health", 20);
-		
-		// Player hunger
-		ResPwn.respawnHunger =  getConfig().getInt("respawn_hunger", 20);
-		
-		// Armor
-		ResPwn.respawnBoots = getConfig().getString("respawn_armor.boots.type", "none");
-		ResPwn.respawnHelm = getConfig().getString("respawn_armor.helm.type", "none");
-		ResPwn.respawnPants = getConfig().getString("respawn_armor.pants.type", "none");
-		ResPwn.respawnPlate = getConfig().getString("respawn_armor.plate.type", "none");
-		
-		// Item in hand
-		ResPwn.respawnWield = getConfig().getString("respawn_wield.item", "none");
+		// Load Configurable Values
+		Config.LoadConfig();
+
 	}
 	
 	public void onDisable() 
 	{
 		
 	}
+	
+	/*** Utility Section - Stuff that does stuff ***/
 	
 	// Boolean to return if the plugin is enabled in a specific world
 	public static boolean isEnabledIn(String world) 

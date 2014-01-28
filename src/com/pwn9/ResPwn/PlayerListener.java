@@ -31,14 +31,13 @@ public class PlayerListener implements Listener
 		// Check if player will get shielded on respawn
 		Shield.doShield(p, w);
 		
-		// Other respawn events go here...
-		
+		// Do health based respawn stuff
 		Health.setResHealth(p, w);
-		
 		Health.setResHunger(p, w);
 		
 		// Armor & Inventory Stuff
 		Inventory.ResArmor(p, w);
+		Inventory.ResWield(p, w);
 		
 		
 	}
