@@ -16,56 +16,68 @@ public class Inventory
 	// We'll set inventories here
 	public static void ResInventory(Player p, World w) 
 	{
-		// Before we do anything, should check permissions
+		// Check to see if plugin is even enabled in this world, if not, quit now yo.
+		if (!ResPwn.isEnabledIn(w.getName())) return; 
 		
+		// Check perms for this setting
+		if (!p.hasPermission("respwn.health")) return;		
 		
 		// And should check the configs
 		
-		
 		// Get players inventory - it should be empty (ish)
 		PlayerInventory pi = p.getInventory();
-		
 		
 	}
 	
 	// We'll set armors here
 	public static void ResArmor(Player p, World w) 
 	{
-		// Before we do anything, should check permissions
+		// Check to see if plugin is even enabled in this world, if not, quit now yo.
+		if (!ResPwn.isEnabledIn(w.getName())) return; 
 		
-		
-		// And should check the configs
-		
-		
+		// Check perms for this setting
+		if (!p.hasPermission("respwn.health")) return;		
+			
 		// Get players inventory - it should be empty (ish)
 		PlayerInventory pi = p.getInventory();
 		
-		// Helmet
-		ItemStack gethelmet = new ItemStack(Material.IRON_HELMET);
-		Map<Enchantment, Integer> helmetEnchants = new HashMap<Enchantment, Integer>();
-		helmetEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-		gethelmet.addEnchantments(helmetEnchants);
-		
 		// Boots
-		ItemStack getboots = new ItemStack(Material.IRON_BOOTS);
+		ItemStack getboots = new ItemStack(Material.getMaterial(ResPwn.respawnBoots));
+		//Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
+		//bootEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//getboots.addEnchantments(bootEnchants);
 		
+		// Helmet
+		ItemStack gethelmet = new ItemStack(Material.getMaterial(ResPwn.respawnHelm));
+		//Map<Enchantment, Integer> helmetEnchants = new HashMap<Enchantment, Integer>();
+		//helmetEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//gethelmet.addEnchantments(helmetEnchants);
+
 		// Leggings (I'm calling them pants)
-		ItemStack getpants = new ItemStack(Material.IRON_LEGGINGS);
+		ItemStack getpants = new ItemStack(Material.getMaterial(ResPwn.respawnPants));
+		//Map<Enchantment, Integer> pantsEnchants = new HashMap<Enchantment, Integer>();
+		//helmetEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//getpants.addEnchantments(pantsEnchants);
 		
 		// Chestplate
-		ItemStack getplate = new ItemStack(Material.IRON_CHESTPLATE);
+		ItemStack getplate = new ItemStack(Material.getMaterial(ResPwn.respawnPlate));
+		//Map<Enchantment, Integer> plateEnchants = new HashMap<Enchantment, Integer>();
+		//helmetEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//getplate.addEnchantments(plateEnchants);
 		
 		// Item in hand (I'm calling it wield)
-		ItemStack getwield = new ItemStack(Material.IRON_SWORD);
-		
+		ItemStack getwield = new ItemStack(Material.getMaterial(ResPwn.respawnWield));
+		//Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
+		//helmetEnchants.put(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//getwield.addEnchantments(wieldEnchants);
 		
 		// Give player the items
-		pi.setHelmet(gethelmet);
 		pi.setBoots(getboots);
+		pi.setHelmet(gethelmet);
 		pi.setLeggings(getpants);
 		pi.setChestplate(getplate);
 		pi.setItemInHand(getwield);	
-		 
+
 	}
 	
 }

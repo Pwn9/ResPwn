@@ -41,6 +41,15 @@ public class ResPwn extends JavaPlugin
 	// Player hunger
 	public static int respawnHunger = 20;
 	
+	// Armor
+	public static String respawnBoots = "none";
+	public static String respawnHelm = "none";
+	public static String respawnPants = "none";
+	public static String respawnPlate = "none";
+	
+	// Item in hand
+	public static String respawnWield = "none";
+	
 	
 	/*** End configurable values ***/
 	
@@ -89,6 +98,15 @@ public class ResPwn extends JavaPlugin
 		
 		// Player hunger
 		ResPwn.respawnHunger =  getConfig().getInt("respawn_hunger", 20);
+		
+		// Armor
+		ResPwn.respawnBoots = getConfig().getString("respawn_armor.boots.type", "none");
+		ResPwn.respawnHelm = getConfig().getString("respawn_armor.helm.type", "none");
+		ResPwn.respawnPants = getConfig().getString("respawn_armor.pants.type", "none");
+		ResPwn.respawnPlate = getConfig().getString("respawn_armor.plate.type", "none");
+		
+		// Item in hand
+		ResPwn.respawnWield = getConfig().getString("respawn_wield.item", "none");
 	}
 	
 	public void onDisable() 

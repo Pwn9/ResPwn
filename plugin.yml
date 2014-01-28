@@ -13,3 +13,5 @@ permissions:
     description: Player will receive ResPwn hunger level
   respwn.armor:
     description: Player will receive ResPwn armor
+  respwn.wield:
+    description: Player will receive ResPwn item in hand 
