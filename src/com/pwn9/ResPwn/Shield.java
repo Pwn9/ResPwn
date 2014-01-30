@@ -4,8 +4,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class Shield 
+public class Shield extends ResPwn
 {
 	
 	public static void doShield(Player p, World w)
@@ -31,11 +32,11 @@ public class Shield
 		// Log respawn event
 		if (ResPwn.logEnabled) 
 		{
-			ResPwn.logToFile("Player " + p.getDisplayName() + " respawn timer activated: " + ResPwn.respawnShieldTimer);
+			ResPwn.logToFile("Player " + p.getDisplayName() + " respawn combat timer activated: " + ResPwn.respawnShieldTimer);
 		}
 		
 		// Send them a message 
-		p.sendMessage("§cRespawn shield activated for §6" + ResPwn.respawnShieldTimer / 1000 + "§c seconds.");
+		p.sendMessage("§cRespawn combat shield activated for §6" + ResPwn.respawnShieldTimer / 1000 + "§c seconds.");
 		
 	}
 	
@@ -158,6 +159,74 @@ public class Shield
         	return false;
         }
 				
+	}
+
+	public static void doTpShield(Player p, World w) 
+	{
+		
+		// We should check to see if plugin is enabled first.
+		if (!ResPwn.isEnabledIn(w.getName())) return; 
+
+		/*** We should also check to see what other config settings are set before adding player to the timer ***/
+		
+		// some code will go here...
+
+		/*** Check against the player for more settings before adding player to the timer ***/
+		
+		// Check is player has permission to use shield
+		if (!p.hasPermission("respwn.tpshield")) return;
+		
+		/*** OK, everything is good lets add player to the timer ***/
+		
+		// Add this respawned player to the respawn timer
+		ResPwn.respawnTpShieldTimes.put(p.getName(), ResPwn.calcTimer(ResPwn.respawnTpTimer));	
+		
+		// Log respawn event
+		if (ResPwn.logEnabled) 
+		{
+			ResPwn.logToFile("Player " + p.getDisplayName() + " respawn teleport timer activated: " + ResPwn.respawnTpTimer);
+		}
+		
+		// Send them a message 
+		p.sendMessage("§cRespawn teleport shield activated for §6" + ResPwn.respawnTpTimer / 1000 + "§c seconds.");
+	}
+
+	public static boolean isShielded(PlayerTeleportEvent e) 
+	{
+		
+		// Get the event world
+		World w = e.getFrom().getWorld();
+		
+		// We should check to see if plugin is enabled first.
+		if (!ResPwn.isEnabledIn(w.getName())) return false; 
+		
+		// Get the player
+		Player p = e.getPlayer();
+		
+		// Check if player is in the timer
+		if(ResPwn.respawnTpShieldTimes.containsKey(p.getName()))
+        {
+
+            Long respTime = ResPwn.respawnTpShieldTimes.get(p.getName());
+            Long currTime = System.currentTimeMillis();
+            
+            if(respTime > currTime) 
+            {
+            	// Player is still shielded
+            	p.sendMessage("§cCannot teleport for §6" + ResPwn.respawnTpTimer / 1000 + "§c seconds.");
+            	return true;
+            } 
+            else 
+            {
+            	ResPwn.respawnTpShieldTimes.remove(p.getName());
+            	return false;
+            }
+        }
+		else 
+		{
+			return false;
+		}
+		
 	}
 	
 }

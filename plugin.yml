@@ -6,12 +6,14 @@ description: Player respawn timer with various settings for gameplay.
 website: http://pwn9.com
 permissions:
   respwn.shield: 
-    description: Player will have access to ResPwn shield
+    description: Player will receive ResPwn combat shield
+  respwn.tpshield:
+    description: Player will receive ResPwn teleport shield
   respwn.health:
     description: Player will receive ResPwn health level
   respwn.hunger:
     description: Player will receive ResPwn hunger level
   respwn.armor:
-    description: Player will receive ResPwn armor
+    description: Player will receive ResPwn armor sets
   respwn.wield:
     description: Player will receive ResPwn item in hand 

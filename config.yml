@@ -9,6 +9,9 @@ respawn_shield_timer: 20
 # If shielded player attacks an unshielded player or mob, the spawn shield is removed. 
 clear_on_attack: false
 
+# (Beta) No teleport timer setting, set this to how long players cannot teleport after respawn (in seconds)
+respawn_tpshield_timer: 20
+
 # The player's health level be on respawn - max 20
 respawn_health: 20
 
@@ -16,29 +19,50 @@ respawn_health: 20
 respawn_hunger: 20
 
 # Player armor on respawn - use official item names only!
+# If armor is leather, you can set a color here using hex code eg: 0x000000
+# For enchants use official bukkit enchant names only, unsafe enchants will be ignored
 respawn_armor:
     boots: 
         type: LEATHER_BOOTS
         enchants: 
-            PROTECTION_ENVIRONMENTAL: 1    
+            PROTECTION_ENVIRONMENTAL: 1
+        name: "Starter Boots"
+        lore: 
+            - "Testing boots lore"
+        color: 0x00FF00           
     helm: 
         type: LEATHER_HELMET
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
+        name: "Starter Helm"
+        lore: 
+            - "Testing helm lore"
+        color: 0x00FF00            
     pants: 
         type: LEATHER_LEGGINGS
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
+        name: "Starter Pants"
+        lore: 
+            - "Testing pants lore"
+        color: 0x00FF00          
     plate: 
         type: LEATHER_CHESTPLATE
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
+        name: "Starter Vest"
+        lore: 
+            - "Testing vest lore"
+        color: 0x00FF00
 
 # Player item in hand on respawn - use official item names only!
 respawn_wield: 
     item: WOOD_SWORD
     enchants: 
         KNOCKBACK: 1
+    name: "Starter Sword"
+    lore:
+        - "Testing wield lore"
 
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

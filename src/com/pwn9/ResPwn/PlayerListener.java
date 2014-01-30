@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerListener implements Listener 
 {
@@ -31,6 +32,9 @@ public class PlayerListener implements Listener
 		// Check if player will get shielded on respawn
 		Shield.doShield(p, w);
 		
+		// Check if player will get tp blocked on respawn
+		Shield.doTpShield(p, w);
+		
 		// Do health based respawn stuff
 		Health.setResHealth(p, w);
 		Health.setResHunger(p, w);
@@ -38,8 +42,7 @@ public class PlayerListener implements Listener
 		// Armor & Inventory Stuff
 		Inventory.ResArmor(p, w);
 		Inventory.ResWield(p, w);
-		
-		
+			
 	}
 	
 	// Handle damage events, ignore cancelled for efficiency
@@ -50,6 +53,16 @@ public class PlayerListener implements Listener
 		// Check is player is shielded 
 		if (Shield.isShielded(e)) e.setCancelled(true);
         
+	}
+	
+	// Handle teleport events, ignore cancelled for efficiency
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void OnTeleport(PlayerTeleportEvent e) 
+	{
+		
+		// Check is player is shielded 
+		if (Shield.isShielded(e)) e.setCancelled(true);
+		
 	}
 	
 }

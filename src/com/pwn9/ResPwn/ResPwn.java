@@ -34,7 +34,10 @@ public class ResPwn extends JavaPlugin
 	// Respawn timer config setting, default 20
 	public static long respawnShieldTimer = 20000;
 	
-	// Clear on attack
+	// Respawn teleport timer config setting, default 20
+	public static long respawnTpTimer = 20000;
+	
+	// Clear on attack - for shield timer
 	public static Boolean clearOnAttack;
 	
 	// Player health & hunger
@@ -42,19 +45,36 @@ public class ResPwn extends JavaPlugin
 	public static int respawnHunger = 20;
 	
 	// Armor
-	public static String respawnBoots = "none";
-	public static String respawnHelm = "none";
-	public static String respawnPants = "none";
-	public static String respawnPlate = "none";
+	public static String respawnBoots;
+	public static String respawnHelm;
+	public static String respawnPants;
+	public static String respawnPlate;
 	// Armor enchant maps
 	public static Map<String, Object> respawnBootsEnchants = new HashMap<String, Object>();
 	public static Map<String, Object> respawnHelmEnchants = new HashMap<String, Object>();
 	public static Map<String, Object> respawnPantsEnchants = new HashMap<String, Object>();
 	public static Map<String, Object> respawnPlateEnchants = new HashMap<String, Object>();
+	// Armor names
+	public static String respawnBootsName;
+	public static String respawnHelmName;
+	public static String respawnPantsName;
+	public static String respawnPlateName;	
+	// Armor lore
+	public static List<String> respawnBootsLore;
+	public static List<String> respawnHelmLore;
+	public static List<String> respawnPantsLore;
+	public static List<String> respawnPlateLore;
+	// Armor colors (if leather)
+	public static String respawnBootsColor;
+	public static String respawnHelmColor;
+	public static String respawnPantsColor;
+	public static String respawnPlateColor;	
 	
 	// Item in hand
-	public static String respawnWield = "none";
+	public static String respawnWield;
 	public static Map<String, Object> respawnWieldEnchants = new HashMap<String, Object>();
+	public static String respawnWieldName;
+	public static List<String> respawnWieldLore;
 	
 	/*** End configurable values ***/
 	
@@ -62,6 +82,9 @@ public class ResPwn extends JavaPlugin
 	
 	// Setup respawn shield time player lists. 
 	public static HashMap<String, Long> respawnShieldTimes = new HashMap<String, Long>();
+	
+	// Setup respawn tpblock timer player lists.
+	public static HashMap<String, Long> respawnTpShieldTimes = new HashMap<String, Long>();
 	
 	/*** End other values ***/
 	
