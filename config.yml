@@ -12,6 +12,9 @@ clear_on_attack: false
 # (Beta) No teleport timer setting, set this to how long players cannot teleport after respawn (in seconds)
 respawn_tpshield_timer: 20
 
+# (Beta) No command use timer setting, set this to how long players cannot use commands after respawn (in seconds)
+respawn_cmdshield_timer: 20
+
 # The player's health level be on respawn - max 20
 respawn_health: 20
 

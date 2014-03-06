@@ -36,6 +36,9 @@ public class ResPwn extends JavaPlugin
 	
 	// Respawn teleport timer config setting, default 20
 	public static long respawnTpTimer = 20000;
+
+	// Respawn command timer config setting, default 20
+	public static long respawnCommandTimer = 20000;
 	
 	// Clear on attack - for shield timer
 	public static Boolean clearOnAttack;
@@ -85,6 +88,9 @@ public class ResPwn extends JavaPlugin
 	
 	// Setup respawn tpblock timer player lists.
 	public static HashMap<String, Long> respawnTpShieldTimes = new HashMap<String, Long>();
+
+	// Setup respawn tpblock timer player lists.
+	public static HashMap<String, Long> respawnCommandShieldTimes = new HashMap<String, Long>();
 	
 	/*** End other values ***/
 	

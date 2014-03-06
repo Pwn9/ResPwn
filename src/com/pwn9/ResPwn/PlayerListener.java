@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -34,6 +35,9 @@ public class PlayerListener implements Listener
 		
 		// Check if player will get tp blocked on respawn
 		Shield.doTpShield(p, w);
+
+		// Check if player will get tp blocked on respawn
+		Shield.doCommandShield(p, w);
 		
 		// Do health based respawn stuff
 		Health.setResHealth(p, w);
@@ -64,5 +68,14 @@ public class PlayerListener implements Listener
 		if (Shield.isShielded(e)) e.setCancelled(true);
 		
 	}
-	
+
+	// Handle teleport events, ignore cancelled for efficiency
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void OnCommand(PlayerCommandPreprocessEvent e) 
+	{
+		
+		// Check is player is shielded 
+		if (Shield.isShielded(e)) e.setCancelled(true);
+		
+	}	
 }

@@ -18,6 +18,9 @@ public class Config extends ResPwn
 
 		// Respawn tptimer config setting, default 20
 		ResPwn.respawnTpTimer = instance.getConfig().getInt("respawn_tpshield_timer", 20) * 1000;
+
+		// Respawn command timer config setting, default 20
+		ResPwn.respawnCommandTimer = instance.getConfig().getInt("respawn_cmdshield_timer", 20) * 1000;
 		
 		// Clear on attack
 		ResPwn.clearOnAttack = instance.getConfig().getBoolean("clear_on_attack");
