@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -103,7 +104,7 @@ public class ResPwn extends JavaPlugin
 	public static HashMap<String, Long> respawnCommandShieldTimes = new HashMap<String, Long>();
 	
  	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
-	public static Map<Player, Map<String, Long>> lastMessage = new HashMap<Player, Map<String, Long>>();	
+	public static Map<UUID, Map<String, Long>> lastMessage = new HashMap<UUID, Map<String, Long>>();	
 	
 	/*** End other values ***/
 	
@@ -201,9 +202,9 @@ public class ResPwn extends JavaPlugin
     	
 		HashMap<String, Long> msgMap = new HashMap<String, Long>();
 		
-		if(ResPwn.lastMessage.containsKey(p))
+		if(ResPwn.lastMessage.containsKey(p.getUniqueId()))
         {
-			Map<String, Long> lastSent = ResPwn.lastMessage.get(p);
+			Map<String, Long> lastSent = ResPwn.lastMessage.get(p.getUniqueId());
             Long lastTime = lastSent.get(msgType);
             Long currTime = System.currentTimeMillis();
             
@@ -211,7 +212,7 @@ public class ResPwn extends JavaPlugin
             {
             	
             	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
-				ResPwn.lastMessage.put(p, msgMap);
+				ResPwn.lastMessage.put(p.getUniqueId(), msgMap);
             }
             else 
             {
@@ -222,7 +223,7 @@ public class ResPwn extends JavaPlugin
 		else 
 		{
         	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
-			ResPwn.lastMessage.put(p, msgMap);
+			ResPwn.lastMessage.put(p.getUniqueId(), msgMap);
 		}
 
 
