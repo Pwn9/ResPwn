@@ -1,5 +1,6 @@
 package com.pwn9.ResPwn;
 
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -15,18 +16,10 @@ public class Shield extends ResPwn
 		
 		// We should check to see if plugin is enabled first.
 		if (!ResPwn.isEnabledIn(w.getName())) return; 
-
-		/*** We should also check to see what other config settings are set before adding player to the timer ***/
-		
-		// some code will go here...
-
-		/*** Check against the player for more settings before adding player to the timer ***/
-		
+	
 		// Check is player has permission to use shield
 		if (!p.hasPermission("respwn.shield")) return;
-		
-		/*** OK, everything is good lets add player to the timer ***/
-		
+			
 		// Add this respawned player to the respawn timer
 		ResPwn.respawnShieldTimes.put(p.getName(), ResPwn.calcTimer(ResPwn.respawnShieldTimer));	
 		
@@ -36,8 +29,10 @@ public class Shield extends ResPwn
 			ResPwn.logToFile("Player " + p.getDisplayName() + " respawn combat timer activated: " + ResPwn.respawnShieldTimer);
 		}
 		
-		// Send them a message 
-		p.sendMessage("§cRespawn combat shield activated for §6" + ResPwn.respawnShieldTimer / 1000 + "§c seconds.");
+		// Send them a message
+		String msg = ChatColor.GOLD + "Combat shield activated for " + ChatColor.RED + ResPwn.respawnShieldTimer / 1000 + ChatColor.GOLD + " seconds.";
+		
+		ResPwn.pwnMessage(p, msg);
 		
 	}
 	
@@ -104,7 +99,8 @@ public class Shield extends ResPwn
                 	// If the attacker is a player, tell them their victim is shielded right now
                 	if (attacker instanceof Player)
             		{
-            			attacker.sendMessage("§c" + victim.getName() + " has respawn shield for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+            			String msg = ChatColor.GOLD + victim.getName() + " has respawn shield for " + ChatColor.RED + (respTime / 1000 - currTime / 1000) + ChatColor.GOLD + " seconds.";
+            			ResPwn.pwnMessage(attacker, msg, "shield");
             		}	
                 }            	
             }			
@@ -122,7 +118,8 @@ public class Shield extends ResPwn
 	            // If attacker is shielded AND clearonAttack is false then keep them shielded and give a warning
 	            if((respTime > currTime) && (!ResPwn.clearOnAttack))
 	            {
-	            	attacker.sendMessage("§cRespawn shield on, no attacking for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+	            	String msg = ChatColor.GOLD + "Shield on, no attacking for " + ChatColor.RED + (respTime / 1000 - currTime / 1000) + ChatColor.GOLD + " seconds.";
+	            	ResPwn.pwnMessage(attacker, msg, "shield");
 	            	attackerShield = true;
 	            } 
 	            // If attacker is shielded AND clearonAttack is true, remove the shield and let them know
@@ -131,7 +128,8 @@ public class Shield extends ResPwn
 	                if(ResPwn.clearOnAttack) 
 	                {
 	                	ResPwn.respawnShieldTimes.remove(attacker.getName());
-	                	attacker.sendMessage("§cYour respawn shield has been removed due to attacking!");
+	                	String msg = ChatColor.GOLD + "Your shield has been removed due to attacking!";
+	                	ResPwn.pwnMessage(attacker, msg, "shield");
 	                }
 	            }
 	            // Shield time has run out, remove the shield, no need to say anything here
@@ -168,16 +166,8 @@ public class Shield extends ResPwn
 		// We should check to see if plugin is enabled first.
 		if (!ResPwn.isEnabledIn(w.getName())) return; 
 
-		/*** We should also check to see what other config settings are set before adding player to the timer ***/
-		
-		// some code will go here...
-
-		/*** Check against the player for more settings before adding player to the timer ***/
-		
 		// Check is player has permission to use shield
 		if (!p.hasPermission("respwn.tpshield")) return;
-		
-		/*** OK, everything is good lets add player to the timer ***/
 		
 		// Add this respawned player to the respawn timer
 		ResPwn.respawnTpShieldTimes.put(p.getName(), ResPwn.calcTimer(ResPwn.respawnTpTimer));	
@@ -189,7 +179,8 @@ public class Shield extends ResPwn
 		}
 		
 		// Send them a message 
-		p.sendMessage("§cRespawn teleport shield activated for §6" + ResPwn.respawnTpTimer / 1000 + "§c seconds.");
+		String msg = ChatColor.GOLD + "Teleport shield activated for " + ChatColor.RED + ResPwn.respawnTpTimer / 1000 + ChatColor.GOLD + " seconds.";
+		ResPwn.pwnMessage(p, msg);
 	}
 
 	public static boolean isShielded(PlayerTeleportEvent e) 
@@ -214,7 +205,8 @@ public class Shield extends ResPwn
             if(respTime > currTime) 
             {
             	// Player is still shielded
-            	p.sendMessage("§cCannot teleport for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+            	String msg = ChatColor.GOLD + "Cannot teleport for " + ChatColor.RED + (respTime / 1000 - currTime / 1000) + ChatColor.GOLD + " seconds.";
+            	ResPwn.pwnMessage(p, msg, "tpShield");
             	return true;
             } 
             else 
@@ -235,18 +227,10 @@ public class Shield extends ResPwn
 		
 		// We should check to see if plugin is enabled first.
 		if (!ResPwn.isEnabledIn(w.getName())) return; 
-
-		/*** We should also check to see what other config settings are set before adding player to the timer ***/
-		
-		// some code will go here...
-
-		/*** Check against the player for more settings before adding player to the timer ***/
-		
+	
 		// Check is player has permission to use shield
 		if (!p.hasPermission("respwn.cmdshield")) return;
-		
-		/*** OK, everything is good lets add player to the timer ***/
-		
+			
 		// Add this respawned player to the respawn timer
 		ResPwn.respawnCommandShieldTimes.put(p.getName(), ResPwn.calcTimer(ResPwn.respawnCommandTimer));	
 		
@@ -257,7 +241,8 @@ public class Shield extends ResPwn
 		}
 		
 		// Send them a message 
-		p.sendMessage("§cRespawn command shield activated for §6" + ResPwn.respawnCommandTimer / 1000 + "§c seconds.");
+		String msg = ChatColor.GOLD + "Command shield activated for " + ChatColor.RED + ResPwn.respawnCommandTimer / 1000 + ChatColor.GOLD + " seconds.";
+		ResPwn.pwnMessage(p, msg);
 		
 	}
 	
@@ -283,7 +268,8 @@ public class Shield extends ResPwn
             if(respTime > currTime) 
             {
             	// Player is still shielded
-            	p.sendMessage("§cCannot use commands for §6" + (respTime / 1000 - currTime / 1000) + "§c seconds.");
+            	String msg = ChatColor.GOLD + "Cannot use commands for " + ChatColor.RED + (respTime / 1000 - currTime / 1000) + ChatColor.GOLD + " seconds.";
+            	ResPwn.pwnMessage(p, msg, "commandShield");
             	return true;
             } 
             else 

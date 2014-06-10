@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.pwn9.ResPwn.MetricsLite;
@@ -30,6 +32,14 @@ public class ResPwn extends JavaPlugin
 	
 	// Get logging enabled
 	public static Boolean logEnabled;
+	
+	// Get prefix configurations
+	public static Boolean prefixEnabled;
+	public static String prefixMsg;
+	public static String prefixMsgColor;
+	public static String prefixWrapFront;
+	public static String prefixWrapBack;
+	public static String prefixWrapColor;
 	
 	// Respawn timer config setting, default 20
 	public static long respawnShieldTimer = 20000;
@@ -91,6 +101,9 @@ public class ResPwn extends JavaPlugin
 
 	// Setup respawn tpblock timer player lists.
 	public static HashMap<String, Long> respawnCommandShieldTimes = new HashMap<String, Long>();
+	
+ 	// Last message map, designed to reduce sendmessage spam - player, lastmessagetime
+	public static Map<Player, Map<String, Long>> lastMessage = new HashMap<Player, Map<String, Long>>();	
 	
 	/*** End other values ***/
 	
@@ -181,6 +194,61 @@ public class ResPwn extends JavaPlugin
 	    	e.printStackTrace();
 	    }
     }	
+    
+    // PwnMessaging System - antispam with message type
+    public static void pwnMessage(Player p, String msg, String msgType)
+    {
+    	
+		HashMap<String, Long> msgMap = new HashMap<String, Long>();
+		
+		if(ResPwn.lastMessage.containsKey(p))
+        {
+			Map<String, Long> lastSent = ResPwn.lastMessage.get(p);
+            Long lastTime = lastSent.get(msgType);
+            Long currTime = System.currentTimeMillis();
+            
+            if(currTime > lastTime) 
+            {
+            	
+            	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
+				ResPwn.lastMessage.put(p, msgMap);
+            }
+            else 
+            {
+            	// Last message was sent too recently, block this message to avoid spammyness.
+            	return;
+            }
+        }
+		else 
+		{
+        	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
+			ResPwn.lastMessage.put(p, msgMap);
+		}
+
+
+    	if (ResPwn.prefixEnabled)
+    	{
+    		p.sendMessage(ChatColor.valueOf(ResPwn.prefixWrapColor) + ResPwn.prefixWrapFront + ChatColor.valueOf(ResPwn.prefixMsgColor) + ResPwn.prefixMsg + ChatColor.valueOf(ResPwn.prefixWrapColor) + ResPwn.prefixWrapBack + msg);
+    	}
+    	else 
+    	{
+    		p.sendMessage(msg);
+    	}
+    }
+    
+
+    // PwnMessaging System - antispam bypass message
+    public static void pwnMessage(Player p, String msg)
+    {
+    	if (ResPwn.prefixEnabled)
+    	{
+    		p.sendMessage(ChatColor.valueOf(ResPwn.prefixWrapColor) + ResPwn.prefixWrapFront + ChatColor.valueOf(ResPwn.prefixMsgColor) + ResPwn.prefixMsg + ChatColor.valueOf(ResPwn.prefixWrapColor) + ResPwn.prefixWrapBack + msg);
+    	}
+    	else 
+    	{
+    		p.sendMessage(msg);
+    	}
+    }
     
     // Date for logging
     public static String getDate() 

@@ -3,16 +3,25 @@ enabled_worlds:
   - example_world
   - example_world_nether
   
+# Message prefix, for messages sent to players by the plugin
+# Available colors: AQUA, BLACK, BLUE, DARK_AQUA, DARK_BLUE, DARK_GRAY, DARK_GREEN, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, WHITE, YELLOW
+prefix_enabled: true
+prefix_msg: "ResPwn"
+prefix_msg_color: "GOLD"
+prefix_wrap_front: "["
+prefix_wrap_back: "]"
+prefix_wrap_color: "RED"
+
 # Respawn shield timer setting, set this to how long the player gets shield on respawn (in seconds)
 respawn_shield_timer: 20
 
 # If shielded player attacks an unshielded player or mob, the spawn shield is removed. 
 clear_on_attack: false
 
-# (Beta) No teleport timer setting, set this to how long players cannot teleport after respawn (in seconds)
+# No teleport timer setting, set this to how long players cannot teleport after respawn (in seconds)
 respawn_tpshield_timer: 20
 
-# (Beta) No command use timer setting, set this to how long players cannot use commands after respawn (in seconds)
+# No command use timer setting, set this to how long players cannot use commands after respawn (in seconds)
 respawn_cmdshield_timer: 20
 
 # The player's health level be on respawn - max 20
@@ -31,7 +40,7 @@ respawn_armor:
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Boots"
         lore: 
-            - "Testing boots lore"
+            - "Starter boots lore"
         color: 0x00FF00           
     helm: 
         type: LEATHER_HELMET
@@ -39,7 +48,7 @@ respawn_armor:
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Helm"
         lore: 
-            - "Testing helm lore"
+            - "Starter helm lore"
         color: 0x00FF00            
     pants: 
         type: LEATHER_LEGGINGS
@@ -47,7 +56,7 @@ respawn_armor:
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Pants"
         lore: 
-            - "Testing pants lore"
+            - "Starter pants lore"
         color: 0x00FF00          
     plate: 
         type: LEATHER_CHESTPLATE
@@ -55,7 +64,7 @@ respawn_armor:
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Vest"
         lore: 
-            - "Testing vest lore"
+            - "Starter vest lore"
         color: 0x00FF00
 
 # Player item in hand on respawn - use official item names only!
@@ -65,7 +74,7 @@ respawn_wield:
         KNOCKBACK: 1
     name: "Starter Sword"
     lore:
-        - "Testing wield lore"
+        - "Starter sword lore"
 
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  

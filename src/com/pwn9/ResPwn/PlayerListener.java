@@ -53,29 +53,23 @@ public class PlayerListener implements Listener
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onDamage(EntityDamageByEntityEvent e) 
 	{
-		
 		// Check is player is shielded 
-		if (Shield.isShielded(e)) e.setCancelled(true);
-        
+		if (Shield.isShielded(e)) e.setCancelled(true);  
 	}
 	
 	// Handle teleport events, ignore cancelled for efficiency
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void OnTeleport(PlayerTeleportEvent e) 
 	{
-		
 		// Check is player is shielded 
-		if (Shield.isShielded(e)) e.setCancelled(true);
-		
+		if (Shield.isShielded(e)) e.setCancelled(true);	
 	}
 
-	// Handle teleport events, ignore cancelled for efficiency
+	// Handle command events, ignore cancelled for efficiency
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void OnCommand(PlayerCommandPreprocessEvent e) 
 	{
-		
 		// Check is player is shielded 
 		if (Shield.isShielded(e)) e.setCancelled(true);
-		
 	}	
 }

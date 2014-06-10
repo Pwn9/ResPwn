@@ -13,6 +13,16 @@ public class Config extends ResPwn
 		// Get logging enabled
 		ResPwn.logEnabled = instance.getConfig().getBoolean("debug_log");
 		
+		// Get prefix enabled
+		ResPwn.prefixEnabled = instance.getConfig().getBoolean("prefix_enabled");
+		
+		// Get prefix stuffs
+		ResPwn.prefixMsg = instance.getConfig().getString("prefix_msg", "ResPwn");
+		ResPwn.prefixMsgColor = instance.getConfig().getString("prefix_msg_color", "GOLD");
+		ResPwn.prefixWrapFront = instance.getConfig().getString("prefix_wrap_front", "[");
+		ResPwn.prefixWrapBack = instance.getConfig().getString("prefix_wrap_back", "]");
+		ResPwn.prefixWrapColor = instance.getConfig().getString("prefix_wrap_color", "RED");
+		
 		// Respawn timer config setting, default 20
 		ResPwn.respawnShieldTimer = instance.getConfig().getInt("respawn_shield_timer", 20) * 1000;
 
