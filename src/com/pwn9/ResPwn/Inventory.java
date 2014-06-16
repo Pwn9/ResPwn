@@ -35,7 +35,6 @@ public class Inventory extends ResPwn
 	
 	// We'll set armors here
 	public static void ResArmor(Player p, World w) 
-	
 	{
 		/*
 		 * TO-DO: Shorten this up some, seems like I could probably do a loop for each armor
@@ -60,115 +59,121 @@ public class Inventory extends ResPwn
 		PlayerInventory pi = p.getInventory();
 		
 		// Boots
-		ItemStack getboots = new ItemStack(Material.getMaterial(ResPwn.respawnBoots));
-		Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnBootsEnchants.keySet()) 
-		{
-			bootEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnBootsEnchants.get(key));
-		}
-		getboots.addEnchantments(bootEnchants);
-		// Set lore and displayname item meta
-		if(getboots.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = getboots.getItemMeta();
-			// is it leather?
-			if((im instanceof LeatherArmorMeta) && (ResPwn.respawnBootsColor != "none")) 
+		if (ResPwn.respawnBootsUse) {
+			ItemStack getboots = new ItemStack(Material.getMaterial(ResPwn.respawnBoots));
+			Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnBootsEnchants.keySet()) 
 			{
-				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnBootsColor)));
+				bootEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnBootsEnchants.get(key));
 			}
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnBootsName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnBootsLore);
-			// put updated item meta on item
-			getboots.setItemMeta(im);				
-		}		
+			getboots.addEnchantments(bootEnchants);
+			// Set lore and displayname item meta
+			if(getboots.hasItemMeta()) 
+			{
+				// create item meta variable
+				ItemMeta im = getboots.getItemMeta();
+				// is it leather?
+				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnBootsColor != "none")) 
+				{
+					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnBootsColor)));
+				}
+				// set item meta display name
+				im.setDisplayName(ResPwn.respawnBootsName);
+				// set item meta lore
+				im.setLore(ResPwn.respawnBootsLore);
+				// put updated item meta on item
+				getboots.setItemMeta(im);				
+			}	
+			pi.setBoots(getboots);
+		}
 		
 		// Helmet
-		ItemStack gethelmet = new ItemStack(Material.getMaterial(ResPwn.respawnHelm));
-		Map<Enchantment, Integer> helmEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnHelmEnchants.keySet()) 
-		{
-			helmEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnHelmEnchants.get(key));
-		}
-		gethelmet.addEnchantments(helmEnchants);
-		// Set lore and displayname item meta
-		if(gethelmet.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = gethelmet.getItemMeta();
-			// is it leather?
-			if((im instanceof LeatherArmorMeta) && (ResPwn.respawnHelmColor != "none")) 
+		if (ResPwn.respawnHelmUse) {		
+			ItemStack gethelmet = new ItemStack(Material.getMaterial(ResPwn.respawnHelm));
+			Map<Enchantment, Integer> helmEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnHelmEnchants.keySet()) 
 			{
-				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnHelmColor)));
+				helmEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnHelmEnchants.get(key));
 			}
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnHelmName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnHelmLore);
-			// put updated item meta on item
-			gethelmet.setItemMeta(im);					
-		}		
+			gethelmet.addEnchantments(helmEnchants);
+			// Set lore and displayname item meta
+			if(gethelmet.hasItemMeta()) 
+			{
+				// create item meta variable
+				ItemMeta im = gethelmet.getItemMeta();
+				// is it leather?
+				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnHelmColor != "none")) 
+				{
+					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnHelmColor)));
+				}
+				// set item meta display name
+				im.setDisplayName(ResPwn.respawnHelmName);
+				// set item meta lore
+				im.setLore(ResPwn.respawnHelmLore);
+				// put updated item meta on item
+				gethelmet.setItemMeta(im);					
+			}
+			pi.setHelmet(gethelmet);
+		}
 
 		// Leggings (I'm calling them pants)
-		ItemStack getpants = new ItemStack(Material.getMaterial(ResPwn.respawnPants));
-		Map<Enchantment, Integer> pantsEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnPantsEnchants.keySet()) 
-		{
-			pantsEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPantsEnchants.get(key));
-		}
-		getpants.addEnchantments(pantsEnchants);
-		// Set lore and displayname item meta
-		if(getpants.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = getpants.getItemMeta();
-			// is it leather?
-			if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPantsColor != "none")) 
+		if (ResPwn.respawnPantsUse) {
+			ItemStack getpants = new ItemStack(Material.getMaterial(ResPwn.respawnPants));
+			Map<Enchantment, Integer> pantsEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnPantsEnchants.keySet()) 
 			{
-				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPantsColor)));
+				pantsEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPantsEnchants.get(key));
 			}
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnPantsName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnPantsLore);
-			// put updated item meta on item
-			getpants.setItemMeta(im);						
-		}	
+			getpants.addEnchantments(pantsEnchants);
+			// Set lore and displayname item meta
+			if(getpants.hasItemMeta()) 
+			{
+				// create item meta variable
+				ItemMeta im = getpants.getItemMeta();
+				// is it leather?
+				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPantsColor != "none")) 
+				{
+					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPantsColor)));
+				}
+				// set item meta display name
+				im.setDisplayName(ResPwn.respawnPantsName);
+				// set item meta lore
+				im.setLore(ResPwn.respawnPantsLore);
+				// put updated item meta on item
+				getpants.setItemMeta(im);						
+			}
+			pi.setLeggings(getpants);
+		}
 		
 		// Chestplate
-		ItemStack getplate = new ItemStack(Material.getMaterial(ResPwn.respawnPlate));
-		Map<Enchantment, Integer> plateEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnPlateEnchants.keySet()) 
-		{
-			plateEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPlateEnchants.get(key));
-		}
-		getplate.addEnchantments(plateEnchants);
-		// Set lore and displayname item meta
-		if(getplate.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = getplate.getItemMeta();
-			// is it leather?
-			if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPlateColor != "none")) 
+		if (ResPwn.respawnPlateUse) {
+			ItemStack getplate = new ItemStack(Material.getMaterial(ResPwn.respawnPlate));
+			Map<Enchantment, Integer> plateEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnPlateEnchants.keySet()) 
 			{
-				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPlateColor)));
+				plateEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPlateEnchants.get(key));
 			}
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnPlateName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnPlateLore);
-			// put updated item meta on item
-			getplate.setItemMeta(im);						
-		}		
+			getplate.addEnchantments(plateEnchants);
+			// Set lore and displayname item meta
+			if(getplate.hasItemMeta()) 
+			{
+				// create item meta variable
+				ItemMeta im = getplate.getItemMeta();
+				// is it leather?
+				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPlateColor != "none")) 
+				{
+					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPlateColor)));
+				}
+				// set item meta display name
+				im.setDisplayName(ResPwn.respawnPlateName);
+				// set item meta lore
+				im.setLore(ResPwn.respawnPlateLore);
+				// put updated item meta on item
+				getplate.setItemMeta(im);						
+			}
+			pi.setChestplate(getplate);
+		}
 		
-		
-		// Give player the items we've seteup
-		pi.setBoots(getboots);
-		pi.setHelmet(gethelmet);
-		pi.setLeggings(getpants);
-		pi.setChestplate(getplate);
 	}
 
 	// We'll set wielded item here
@@ -186,7 +191,10 @@ public class Inventory extends ResPwn
 		if (!ResPwn.isEnabledIn(w.getName())) return; 
 		
 		// Check perms for this setting
-		if (!p.hasPermission("respwn.wield")) return;		
+		if (!p.hasPermission("respwn.wield")) return;	
+		
+		// Check config to see if wield is even enabled
+		if (!ResPwn.respawnWieldUse) return;
 			
 		// Get players inventory - it should be empty (ish)
 		PlayerInventory pi = p.getInventory();

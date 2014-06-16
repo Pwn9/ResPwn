@@ -30,11 +30,15 @@ respawn_health: 20
 # The player's hunger level be on respawn - max 20
 respawn_hunger: 20
 
+# Set an armor delay, to only allow respawned players to get armor/wield kit every X seconds. 60 = 1 minute, 600 = 10 minutes, 3600 = 1 hour...
+armor_delay: 600
+
 # Player armor on respawn - use official item names only!
 # If armor is leather, you can set a color here using hex code eg: 0x000000
 # For enchants use official bukkit enchant names only, unsafe enchants will be ignored
 respawn_armor:
     boots: 
+        use: false
         type: LEATHER_BOOTS
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
@@ -43,6 +47,7 @@ respawn_armor:
             - "Starter boots lore"
         color: 0x00FF00           
     helm: 
+        use: false
         type: LEATHER_HELMET
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
@@ -51,6 +56,7 @@ respawn_armor:
             - "Starter helm lore"
         color: 0x00FF00            
     pants: 
+        use: false
         type: LEATHER_LEGGINGS
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
@@ -59,6 +65,7 @@ respawn_armor:
             - "Starter pants lore"
         color: 0x00FF00          
     plate: 
+        use: false
         type: LEATHER_CHESTPLATE
         enchants: 
             PROTECTION_ENVIRONMENTAL: 1
@@ -69,6 +76,7 @@ respawn_armor:
 
 # Player item in hand on respawn - use official item names only!
 respawn_wield: 
+    use: false
     item: WOOD_SWORD
     enchants: 
         KNOCKBACK: 1

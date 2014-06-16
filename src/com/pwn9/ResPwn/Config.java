@@ -36,8 +36,18 @@ public class Config extends ResPwn
 		ResPwn.clearOnAttack = instance.getConfig().getBoolean("clear_on_attack");
 		
 		// Player health & hunger
-		ResPwn.respawnHealth =  instance.getConfig().getInt("respawn_health", 20);
-		ResPwn.respawnHunger =  instance.getConfig().getInt("respawn_hunger", 20);
+		ResPwn.respawnHealth = instance.getConfig().getInt("respawn_health", 20);
+		ResPwn.respawnHunger = instance.getConfig().getInt("respawn_hunger", 20);
+		
+		// Armor delay
+		ResPwn.armorDelay = instance.getConfig().getInt("armor_delay", 600) * 1000;
+		
+		// Inventory Booleans
+		ResPwn.respawnBootsUse = instance.getConfig().getBoolean("respawn_armor.boots.use");
+		ResPwn.respawnHelmUse = instance.getConfig().getBoolean("respawn_armor.helm.use");
+		ResPwn.respawnPantsUse = instance.getConfig().getBoolean("respawn_armor.pants.use");
+		ResPwn.respawnPlateUse = instance.getConfig().getBoolean("respawn_armor.plate.use");
+		ResPwn.respawnWieldUse = instance.getConfig().getBoolean("respawn_wield.use");
 		
 		// Armor
 		ResPwn.respawnBoots = instance.getConfig().getString("respawn_armor.boots.type", "none");
@@ -69,6 +79,9 @@ public class Config extends ResPwn
 		ResPwn.respawnWieldEnchants = instance.getConfig().getConfigurationSection("respawn_wield.enchants").getValues(false);
 		ResPwn.respawnWieldName = instance.getConfig().getString("respawn_wield.name");
 		ResPwn.respawnWieldLore = instance.getConfig().getStringList("respawn_wield.lore");
+		
+		// Get balances config
+		ResPwn.players.saveDefaultConfig();
 	}
 	
 }

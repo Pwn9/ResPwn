@@ -44,8 +44,29 @@ public class PlayerListener implements Listener
 		Health.setResHunger(p, w);
 		
 		// Armor & Inventory Stuff
-		Inventory.ResArmor(p, w);
-		Inventory.ResWield(p, w);
+		if (!Shield.isShielded(e)) 
+		{
+			Boolean sendMsg = false;
+			
+			if (p.hasPermission("respwn.armor")) 
+			{
+				Inventory.ResArmor(p, w);
+				sendMsg = true;
+			}
+			if (p.hasPermission("respwn.armor")) 
+			{
+				Inventory.ResWield(p, w);	
+				sendMsg = true;
+			}
+			
+			if (sendMsg)
+			{
+				String puuid = p.getUniqueId().toString() + ".ArmorTime";
+				Long pat = ResPwn.calcTimer((long) ResPwn.armorDelay);
+				ResPwn.players.getConfig().set(puuid, pat);
+				ResPwn.players.saveConfig();
+			}
+		}
 			
 	}
 	

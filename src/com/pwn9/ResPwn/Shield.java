@@ -6,6 +6,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class Shield extends ResPwn
@@ -265,7 +266,7 @@ public class Shield extends ResPwn
             Long respTime = ResPwn.respawnCommandShieldTimes.get(p.getName());
             Long currTime = System.currentTimeMillis();
             
-            if(respTime > currTime) 
+            if (respTime > currTime) 
             {
             	// Player is still shielded
             	String msg = ChatColor.GOLD + "Cannot use commands for " + ChatColor.RED + (respTime / 1000 - currTime / 1000) + ChatColor.GOLD + " seconds.";
@@ -284,5 +285,34 @@ public class Shield extends ResPwn
 		}
 	}
 
+	// Armor delay 
+	public static boolean isShielded(PlayerRespawnEvent e) 
+	{
+		Player p = e.getPlayer();
+		
+		if (ResPwn.players.getConfig().contains(p.getUniqueId().toString()))
+		{
+			Long respTime = ResPwn.players.getConfig().getLong(p.getUniqueId().toString()+".ArmorTime");
+            Long currTime = System.currentTimeMillis();
+            
+            if (respTime > currTime) 
+            {
+            	// Player is still shielded and can't get armor
+            	String timeLeft = ResPwn.getStrTime(respTime - currTime);
+            	String msg = ChatColor.GOLD + "Armor kit delay remaining: " + ChatColor.RED + timeLeft + ChatColor.GOLD + ".";
+            	ResPwn.pwnMessage(p, msg, "armorDelay");
+            	return true;	
+            }
+            else 
+            {
+            	return false;
+            }
+		}
+		else 
+		{
+			return false;
+		}
+		
+	}
 	
 }

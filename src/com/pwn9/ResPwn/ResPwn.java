@@ -11,11 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.pwn9.ResPwn.ConfigAccessor;
 import com.pwn9.ResPwn.MetricsLite;
 
 public class ResPwn extends JavaPlugin 
@@ -58,6 +60,15 @@ public class ResPwn extends JavaPlugin
 	public static int respawnHealth = 20;
 	public static int respawnHunger = 20;
 	
+	// Armor delay timer config setting, default 600 (10 mins)
+	public static long armorDelay = 600000;
+	
+	// Inventory Booleans
+	public static Boolean respawnBootsUse;
+	public static Boolean respawnHelmUse;
+	public static Boolean respawnPantsUse;
+	public static Boolean respawnPlateUse;	
+	public static Boolean respawnWieldUse;	
 	// Armor
 	public static String respawnBoots;
 	public static String respawnHelm;
@@ -108,6 +119,8 @@ public class ResPwn extends JavaPlugin
 	
 	/*** End other values ***/
 	
+	public static ConfigAccessor players;
+	
 	// Things to do when the plugin starts
 	public void onEnable() 
 	{
@@ -134,6 +147,9 @@ public class ResPwn extends JavaPlugin
 		// Get data folder
 		ResPwn.dataFolder = getDataFolder();
 		
+		// Config accessor
+		players = new ConfigAccessor(this, "players.yml");
+		
 		// Load Configurable Values
 		Config.LoadConfig();
 
@@ -141,7 +157,7 @@ public class ResPwn extends JavaPlugin
 	
 	public void onDisable() 
 	{
-		
+		players.saveConfig();
 	}
 	
 	/*** Utility Section - Stuff that does stuff ***/
@@ -199,33 +215,38 @@ public class ResPwn extends JavaPlugin
     // PwnMessaging System - antispam with message type
     public static void pwnMessage(Player p, String msg, String msgType)
     {
-    	
-		HashMap<String, Long> msgMap = new HashMap<String, Long>();
-		
 		if(ResPwn.lastMessage.containsKey(p.getUniqueId()))
         {
 			Map<String, Long> lastSent = ResPwn.lastMessage.get(p.getUniqueId());
-            Long lastTime = lastSent.get(msgType);
-            Long currTime = System.currentTimeMillis();
-            
-            if(currTime > lastTime) 
-            {
-            	
-            	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
-				ResPwn.lastMessage.put(p.getUniqueId(), msgMap);
-            }
-            else 
-            {
-            	// Last message was sent too recently, block this message to avoid spammyness.
-            	return;
-            }
+			if (lastSent.containsKey(msgType)) 
+			{
+	            Long lastTime = lastSent.get(msgType);
+	            Long currTime = System.currentTimeMillis();
+	            
+	            if(currTime > lastTime) 
+	            {
+	            	lastSent.put(msgType, ResPwn.calcTimer((long) 5000));
+					ResPwn.lastMessage.put(p.getUniqueId(), lastSent);
+	            }
+	            else 
+	            {
+	            	// Last message was sent too recently, block this message to avoid spammyness.
+	            	return;
+	            }				
+			}
+			else
+			{
+				HashMap<String, Long> msgMap = new HashMap<String, Long>();
+	        	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
+				ResPwn.lastMessage.put(p.getUniqueId(), msgMap);				
+			}
         }
 		else 
 		{
+			HashMap<String, Long> msgMap = new HashMap<String, Long>();
         	msgMap.put(msgType, ResPwn.calcTimer((long) 5000));
 			ResPwn.lastMessage.put(p.getUniqueId(), msgMap);
 		}
-
 
     	if (ResPwn.prefixEnabled)
     	{
@@ -261,5 +282,51 @@ public class ResPwn extends JavaPlugin
 		  s = formatter.format(date);
 		  return s;
     }
+    
+    /**
+     * Convert a millisecond duration to a string format
+     * 
+     * @param millis A duration to convert to a string form
+     * @return A string of the form "X Days Y Hours Z Minutes A Seconds".
+     */
+    public static String getStrTime(long millis)
+    {
+        if(millis < 0)
+        {
+            throw new IllegalArgumentException("Duration must be greater than zero!");
+        }
+
+        long days = TimeUnit.MILLISECONDS.toDays(millis);
+        millis -= TimeUnit.DAYS.toMillis(days);
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+        millis -= TimeUnit.HOURS.toMillis(hours);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+        millis -= TimeUnit.MINUTES.toMillis(minutes);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+
+        StringBuilder sb = new StringBuilder(64);
+        if (days > 0)
+        {
+	        sb.append(days);
+	        sb.append(" Days ");
+        }
+        if (hours > 0)
+        {
+	        sb.append(hours);
+	        sb.append(" Hours ");
+        }
+        if (minutes > 0)
+        {
+	        sb.append(minutes);
+	        sb.append(" Mins ");
+        }
+        if (seconds >= 0)
+        {
+	        sb.append(seconds);
+	        sb.append(" Secs");
+        }
+        
+        return(sb.toString());
+    }    
 	
 }
