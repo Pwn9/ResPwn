@@ -53,6 +53,7 @@ public class PlayerListener implements Listener
 				Inventory.ResArmor(p, w);
 				sendMsg = true;
 			}
+			// this could be separate someday thats why it's done like this
 			if (p.hasPermission("respwn.armor")) 
 			{
 				Inventory.ResWield(p, w);	
@@ -66,6 +67,13 @@ public class PlayerListener implements Listener
 				ResPwn.players.getConfig().set(puuid, pat);
 				ResPwn.players.saveConfig();
 			}
+		}
+		
+		// Add potions here?
+		if (p.hasPermission("respwn.potions"))
+		{
+			PotionTask task = new PotionTask(p);
+			ResPwn.instance.getServer().getScheduler().runTaskLater(ResPwn.instance, task, 10L);
 		}
 			
 	}

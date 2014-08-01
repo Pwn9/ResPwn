@@ -1,6 +1,6 @@
 main: com.pwn9.ResPwn.ResPwn
 name: ResPwn
-version: 0.9
+version: 1.0
 author: tremor77
 description: Player respawn timer with various settings for gameplay.
 website: http://pwn9.com
@@ -19,3 +19,5 @@ permissions:
     description: Player will receive ResPwn armor sets
   respwn.wield:
     description: Player will receive ResPwn item in hand 
+  respwn.potions:
+    description: Player will receive ResPwn potion effects

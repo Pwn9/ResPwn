@@ -84,5 +84,14 @@ respawn_wield:
     lore:
         - "Starter sword lore"
 
+# duration is in TICKS. 20 ticks = 1 second
+respawn_potions:
+    INVISIBILITY: 
+        duration: 400
+        amplifier: 1
+    SPEED: 
+        duration: 400
+        amplifier: 1    
+
 # Run a debug log to view additional plugin data for troubleshooting and configuration, turn off in production!
 debug_log: false  
