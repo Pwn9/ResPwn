@@ -4,9 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class PotionTask extends BukkitRunnable 
+public class PotionTask implements Runnable
 {
     private Player player;
    
