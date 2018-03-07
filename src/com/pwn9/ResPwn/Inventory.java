@@ -1,6 +1,7 @@
 package com.pwn9.ResPwn;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Color;
@@ -16,7 +17,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 public class Inventory extends ResPwn
 {
 
-	// We'll set inventories here - to do
+	//TODO: We'll set inventories here - this function not yet implemented
 	public static void ResInventory(Player p, World w) 
 	{
 		
@@ -33,6 +34,38 @@ public class Inventory extends ResPwn
 		
 	}
 	
+	// returns an itemstack for setting armor 
+	public static ItemStack SetArmors(String itemBase, Map<String, Object> itemEnchants, String itemColor, String itemName, List<String> itemLore) {
+		
+		ItemStack getItem = new ItemStack(Material.getMaterial(itemBase));
+		Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
+		for (String key : itemEnchants.keySet()) 
+		{
+			bootEnchants.put(Enchantment.getByName(key), (Integer) itemEnchants.get(key));
+		}
+		getItem.addEnchantments(bootEnchants);
+		// Set lore and display name item meta
+		if(getItem.hasItemMeta()) 
+		{
+			// create item meta variable
+			ItemMeta im = getItem.getItemMeta();
+			// is it leather?
+			if((im instanceof LeatherArmorMeta) && (itemColor != "none")) 
+			{
+				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(itemColor)));
+			}
+			// set item meta display name
+			im.setDisplayName(itemName);
+			// set item meta lore
+			im.setLore(itemLore);
+			// put updated item meta on item
+			getItem.setItemMeta(im);				
+		}
+			
+		return getItem;
+			
+	}
+	
 	// We'll set armors here
 	public static void ResArmor(Player p, World w) 
 	{
@@ -45,7 +78,7 @@ public class Inventory extends ResPwn
 		/* 
 		 * TO-DO: Checks and balances, on badly configured items from the config.yml, 
 		 * right now this sort of lets the server admin be stupid and break the plugin
-		 * it they don't set stuff up right, but then again, that's there problem ain't 
+		 * it they don't set stuff up right, but then again, that's their problem ain't 
 		 * it? I mean, the config.yml is commented and documented.
 		 */
 		
@@ -58,120 +91,26 @@ public class Inventory extends ResPwn
 		// Get players inventory - it should be empty (ish)
 		PlayerInventory pi = p.getInventory();
 		
+		// Set the armors with the SetArmors routine
+		
 		// Boots
 		if (ResPwn.respawnBootsUse) {
-			ItemStack getboots = new ItemStack(Material.getMaterial(ResPwn.respawnBoots));
-			Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
-			for (String key : ResPwn.respawnBootsEnchants.keySet()) 
-			{
-				bootEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnBootsEnchants.get(key));
-			}
-			getboots.addEnchantments(bootEnchants);
-			// Set lore and displayname item meta
-			if(getboots.hasItemMeta()) 
-			{
-				// create item meta variable
-				ItemMeta im = getboots.getItemMeta();
-				// is it leather?
-				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnBootsColor != "none")) 
-				{
-					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnBootsColor)));
-				}
-				// set item meta display name
-				im.setDisplayName(ResPwn.respawnBootsName);
-				// set item meta lore
-				im.setLore(ResPwn.respawnBootsLore);
-				// put updated item meta on item
-				getboots.setItemMeta(im);				
-			}	
-			pi.setBoots(getboots);
+			Inventory.SetArmors(ResPwn.respawnBoots, ResPwn.respawnBootsEnchants, ResPwn.respawnBootsColor, ResPwn.respawnBootsName, ResPwn.respawnBootsLore);
 		}
 		
-		// Helmet
-		if (ResPwn.respawnHelmUse) {		
-			ItemStack gethelmet = new ItemStack(Material.getMaterial(ResPwn.respawnHelm));
-			Map<Enchantment, Integer> helmEnchants = new HashMap<Enchantment, Integer>();
-			for (String key : ResPwn.respawnHelmEnchants.keySet()) 
-			{
-				helmEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnHelmEnchants.get(key));
-			}
-			gethelmet.addEnchantments(helmEnchants);
-			// Set lore and displayname item meta
-			if(gethelmet.hasItemMeta()) 
-			{
-				// create item meta variable
-				ItemMeta im = gethelmet.getItemMeta();
-				// is it leather?
-				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnHelmColor != "none")) 
-				{
-					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnHelmColor)));
-				}
-				// set item meta display name
-				im.setDisplayName(ResPwn.respawnHelmName);
-				// set item meta lore
-				im.setLore(ResPwn.respawnHelmLore);
-				// put updated item meta on item
-				gethelmet.setItemMeta(im);					
-			}
-			pi.setHelmet(gethelmet);
+		// Helm
+		if (ResPwn.respawnHelmUse) {
+			pi.setHelmet(Inventory.SetArmors(ResPwn.respawnHelm, ResPwn.respawnHelmEnchants, ResPwn.respawnHelmColor, ResPwn.respawnHelmName, ResPwn.respawnHelmLore));
 		}
 
 		// Leggings (I'm calling them pants)
 		if (ResPwn.respawnPantsUse) {
-			ItemStack getpants = new ItemStack(Material.getMaterial(ResPwn.respawnPants));
-			Map<Enchantment, Integer> pantsEnchants = new HashMap<Enchantment, Integer>();
-			for (String key : ResPwn.respawnPantsEnchants.keySet()) 
-			{
-				pantsEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPantsEnchants.get(key));
-			}
-			getpants.addEnchantments(pantsEnchants);
-			// Set lore and displayname item meta
-			if(getpants.hasItemMeta()) 
-			{
-				// create item meta variable
-				ItemMeta im = getpants.getItemMeta();
-				// is it leather?
-				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPantsColor != "none")) 
-				{
-					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPantsColor)));
-				}
-				// set item meta display name
-				im.setDisplayName(ResPwn.respawnPantsName);
-				// set item meta lore
-				im.setLore(ResPwn.respawnPantsLore);
-				// put updated item meta on item
-				getpants.setItemMeta(im);						
-			}
-			pi.setLeggings(getpants);
+			pi.setLeggings(Inventory.SetArmors(ResPwn.respawnPants, ResPwn.respawnPantsEnchants, ResPwn.respawnPantsColor, ResPwn.respawnPantsName, ResPwn.respawnPantsLore));
 		}
 		
 		// Chestplate
 		if (ResPwn.respawnPlateUse) {
-			ItemStack getplate = new ItemStack(Material.getMaterial(ResPwn.respawnPlate));
-			Map<Enchantment, Integer> plateEnchants = new HashMap<Enchantment, Integer>();
-			for (String key : ResPwn.respawnPlateEnchants.keySet()) 
-			{
-				plateEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnPlateEnchants.get(key));
-			}
-			getplate.addEnchantments(plateEnchants);
-			// Set lore and displayname item meta
-			if(getplate.hasItemMeta()) 
-			{
-				// create item meta variable
-				ItemMeta im = getplate.getItemMeta();
-				// is it leather?
-				if((im instanceof LeatherArmorMeta) && (ResPwn.respawnPlateColor != "none")) 
-				{
-					((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(ResPwn.respawnPlateColor)));
-				}
-				// set item meta display name
-				im.setDisplayName(ResPwn.respawnPlateName);
-				// set item meta lore
-				im.setLore(ResPwn.respawnPlateLore);
-				// put updated item meta on item
-				getplate.setItemMeta(im);						
-			}
-			pi.setChestplate(getplate);
+			pi.setChestplate(Inventory.SetArmors(ResPwn.respawnPlate, ResPwn.respawnPlateEnchants, ResPwn.respawnPlateColor, ResPwn.respawnPlateName, ResPwn.respawnPlateLore));
 		}
 		
 	}
@@ -211,7 +150,7 @@ public class Inventory extends ResPwn
 		// Now set the enchants
 		getwield.addEnchantments(wieldEnchants);
 		
-		// Set lore and displayname item meta
+		// Set lore and display name item meta
 		if(getwield.hasItemMeta()) 
 		{
 			// create item meta variable
@@ -227,6 +166,9 @@ public class Inventory extends ResPwn
 		// Set active slot to slot 0, in case we want to give them other items in the hotbar someday
 		pi.setHeldItemSlot(0);
 		// Give player a wielded item
-		pi.setItemInHand(getwield);	
+		p.getInventory().setItemInMainHand(getwield);
+		// pi.setItemInHand(getwield);  deprecated method for dual wield
+		// we could set the offhand now too..
+		//p.getInventory().setItemInOffHand(something);
 	}
 }

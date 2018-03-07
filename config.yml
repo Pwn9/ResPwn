@@ -16,7 +16,7 @@ prefix_wrap_color: "RED"
 respawn_shield_timer: 20
 
 # If shielded player attacks an unshielded player or mob, the spawn shield is removed. 
-clear_on_attack: false
+clear_on_attack: true
 
 # No teleport timer setting, set this to how long players cannot teleport after respawn (in seconds)
 respawn_tpshield_timer: 20
