@@ -18,6 +18,8 @@ permissions:
   respwn.armor:
     description: Player will receive ResPwn armor sets
   respwn.wield:
-    description: Player will receive ResPwn item in hand 
+    description: Player will receive ResPwn item in main hand
+  respwn.offhand:
+    description: Player will receive ResPwn item in off hand      
   respwn.potions:
     description: Player will receive ResPwn potion effects

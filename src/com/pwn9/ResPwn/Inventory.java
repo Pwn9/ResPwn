@@ -166,9 +166,64 @@ public class Inventory extends ResPwn
 		// Set active slot to slot 0, in case we want to give them other items in the hotbar someday
 		pi.setHeldItemSlot(0);
 		// Give player a wielded item
-		p.getInventory().setItemInMainHand(getwield);
-		// pi.setItemInHand(getwield);  deprecated method for dual wield
+		pi.setItemInMainHand(getwield);
+
 		// we could set the offhand now too..
 		//p.getInventory().setItemInOffHand(something);
 	}
+	
+
+
+	// We'll set off hand wielded item here
+	public static void ResOffhand(Player p, World w) 
+	{
+		
+		/* 
+		 * TO-DO: Checks and balances, on badly configured items from the config.yml, 
+		 * right now this sort of lets the server admin be stupid and break the plugin
+		 * it they don't set stuff up right, but then again, that's there problem ain't 
+		 * it? I mean, the config.yml is commented and documented.
+		 */
+		
+		// Check to see if plugin is even enabled in this world, if not, quit now yo.
+		if (!ResPwn.isEnabledIn(w.getName())) return; 
+		
+		// Check perms for this setting
+		if (!p.hasPermission("respwn.offhand")) return;	
+		
+		// Check config to see if wield is even enabled
+		if (!ResPwn.respawnOffhandUse) return;
+			
+		// Get players inventory - it should be empty (ish)
+		PlayerInventory pi = p.getInventory();
+		
+		// Item in hand (I'm calling it wield)
+		ItemStack getwield = new ItemStack(Material.getMaterial(ResPwn.respawnOffhand));
+		
+		// Get the enchants
+		Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
+		for (String key : ResPwn.respawnOffhandEnchants.keySet()) 
+		{
+			wieldEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnOffhandEnchants.get(key));
+		}
+		// Now set the enchants
+		getwield.addEnchantments(wieldEnchants);
+		
+		// Set lore and display name item meta
+		if(getwield.hasItemMeta()) 
+		{
+			// create item meta variable
+			ItemMeta im = getwield.getItemMeta();
+			// set item meta display name
+			im.setDisplayName(ResPwn.respawnOffhandName);
+			// set item meta lore
+			im.setLore(ResPwn.respawnOffhandLore);
+			// put updated item meta on item
+			getwield.setItemMeta(im);
+		}
+		
+		// Give player an off hand item
+		pi.setItemInOffHand(getwield);
+	}
+	
 }

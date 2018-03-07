@@ -69,6 +69,7 @@ public class ResPwn extends JavaPlugin
 	public static Boolean respawnPantsUse;
 	public static Boolean respawnPlateUse;	
 	public static Boolean respawnWieldUse;	
+	public static Boolean respawnOffhandUse;	
 	// Armor
 	public static String respawnBoots;
 	public static String respawnHelm;
@@ -95,11 +96,17 @@ public class ResPwn extends JavaPlugin
 	public static String respawnPantsColor;
 	public static String respawnPlateColor;	
 	
-	// Item in hand
+	// Item in main hand
 	public static String respawnWield;
 	public static Map<String, Object> respawnWieldEnchants = new HashMap<String, Object>();
 	public static String respawnWieldName;
 	public static List<String> respawnWieldLore;
+
+	// Item in off hand
+	public static String respawnOffhand;
+	public static Map<String, Object> respawnOffhandEnchants = new HashMap<String, Object>();
+	public static String respawnOffhandName;
+	public static List<String> respawnOffhandLore;
 	
 	/*** End configurable values ***/
 	

@@ -74,7 +74,7 @@ respawn_armor:
             - "Starter vest lore"
         color: 0x00FF00
 
-# Player item in hand on respawn - use official item names only!
+# Player item in MAIN hand on respawn - use official item names only!
 respawn_wield: 
     use: false
     item: WOOD_SWORD
@@ -84,7 +84,16 @@ respawn_wield:
     lore:
         - "Starter sword lore"
 
-# duration is in TICKS. 20 ticks = 1 second
+# Player item in MAIN hand on respawn - use official item names only!
+respawn_offhand: 
+    use: false
+    item: TORCH
+    enchants: []
+    name: "A light"
+    lore:
+        - "in case it's dark out"
+        
+# duration is in TICKS. 20 ticks = 1 second. This will set potion effects on player after respawn.
 respawn_potions:
     INVISIBILITY: 
         duration: 400

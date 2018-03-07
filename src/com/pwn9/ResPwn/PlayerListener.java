@@ -48,15 +48,24 @@ public class PlayerListener implements Listener
 		{
 			Boolean sendMsg = false;
 			
+			// can i has some armor?
 			if (p.hasPermission("respwn.armor")) 
 			{
 				Inventory.ResArmor(p, w);
 				sendMsg = true;
 			}
-			// this could be separate someday thats why it's done like this
-			if (p.hasPermission("respwn.armor")) 
+			
+			// can i has a sword?
+			if (p.hasPermission("respwn.wield")) 
 			{
 				Inventory.ResWield(p, w);	
+				sendMsg = true;
+			}
+			
+			// can i has off hand?
+			if (p.hasPermission("respwn.offhand")) 
+			{
+				Inventory.ResOffhand(p, w);	
 				sendMsg = true;
 			}
 			

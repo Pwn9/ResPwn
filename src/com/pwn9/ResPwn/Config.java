@@ -48,6 +48,7 @@ public class Config
 		ResPwn.respawnPantsUse = ResPwn.instance.getConfig().getBoolean("respawn_armor.pants.use");
 		ResPwn.respawnPlateUse = ResPwn.instance.getConfig().getBoolean("respawn_armor.plate.use");
 		ResPwn.respawnWieldUse = ResPwn.instance.getConfig().getBoolean("respawn_wield.use");
+		ResPwn.respawnOffhandUse = ResPwn.instance.getConfig().getBoolean("respawn_offhand.use");
 		
 		// Armor
 		ResPwn.respawnBoots = ResPwn.instance.getConfig().getString("respawn_armor.boots.type", "none");
@@ -74,11 +75,17 @@ public class Config
 		ResPwn.respawnPlateLore = ResPwn.instance.getConfig().getStringList("respawn_armor.plate.lore");
 		ResPwn.respawnPlateColor = ResPwn.instance.getConfig().getString("respawn_armor.plate.color", "none");
 		
-		// Item in hand
+		// Item in main hand
 		ResPwn.respawnWield = ResPwn.instance.getConfig().getString("respawn_wield.item", "none");
 		ResPwn.respawnWieldEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_wield.enchants").getValues(false);
 		ResPwn.respawnWieldName = ResPwn.instance.getConfig().getString("respawn_wield.name");
 		ResPwn.respawnWieldLore = ResPwn.instance.getConfig().getStringList("respawn_wield.lore");
+
+		// Item in off hand
+		ResPwn.respawnOffhand = ResPwn.instance.getConfig().getString("respawn_offhand.item", "none");
+		ResPwn.respawnOffhandEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_offhand.enchants").getValues(false);
+		ResPwn.respawnOffhandName = ResPwn.instance.getConfig().getString("respawn_offhand.name");
+		ResPwn.respawnOffhandLore = ResPwn.instance.getConfig().getStringList("respawn_offhand.lore");
 		
 		// Get balances config
 		ResPwn.players.saveDefaultConfig();
