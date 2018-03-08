@@ -38,18 +38,26 @@ public class Inventory extends ResPwn
 	public static ItemStack SetArmors(String itemBase, Map<String, Object> itemEnchants, String itemColor, String itemName, List<String> itemLore) {
 		
 		ItemStack getItem = new ItemStack(Material.getMaterial(itemBase));
-		Map<Enchantment, Integer> bootEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : itemEnchants.keySet()) 
-		{
-			bootEnchants.put(Enchantment.getByName(key), (Integer) itemEnchants.get(key));
+		
+		// set enchantments
+		if (itemEnchants.get("use").equals(true)) {
+			Map<Enchantment, Integer> itemEnchant = new HashMap<Enchantment, Integer>();
+			for (String key : itemEnchants.keySet()) 
+			{
+				if (!key.equals("use")) 
+				{
+					itemEnchant.put(Enchantment.getByName(key), (Integer) itemEnchants.get(key));
+				}
+			}
+			getItem.addEnchantments(itemEnchant);
 		}
-		getItem.addEnchantments(bootEnchants);
+		
 		// Set lore and display name item meta
 		if(getItem.hasItemMeta()) 
 		{
 			// create item meta variable
 			ItemMeta im = getItem.getItemMeta();
-			// is it leather?
+			// if it's leather we can set the color
 			if((im instanceof LeatherArmorMeta) && (itemColor != "none")) 
 			{
 				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(itemColor)));
@@ -69,11 +77,6 @@ public class Inventory extends ResPwn
 	// We'll set armors here
 	public static void ResArmor(Player p, World w) 
 	{
-		/*
-		 * TO-DO: Shorten this up some, seems like I could probably do a loop for each armor
-		 * piece and set up the item stack that way, it would be less code needed and potentially 
-		 * scalable if I ever set this up to do per permission armor sets on respawn.
-		 */
 		
 		/* 
 		 * TO-DO: Checks and balances, on badly configured items from the config.yml, 
@@ -95,7 +98,7 @@ public class Inventory extends ResPwn
 		
 		// Boots
 		if (ResPwn.respawnBootsUse) {
-			Inventory.SetArmors(ResPwn.respawnBoots, ResPwn.respawnBootsEnchants, ResPwn.respawnBootsColor, ResPwn.respawnBootsName, ResPwn.respawnBootsLore);
+			pi.setBoots(Inventory.SetArmors(ResPwn.respawnBoots, ResPwn.respawnBootsEnchants, ResPwn.respawnBootsColor, ResPwn.respawnBootsName, ResPwn.respawnBootsLore));
 		}
 		
 		// Helm
@@ -142,13 +145,18 @@ public class Inventory extends ResPwn
 		ItemStack getwield = new ItemStack(Material.getMaterial(ResPwn.respawnWield));
 		
 		// Get the enchants
-		Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnWieldEnchants.keySet()) 
-		{
-			wieldEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnWieldEnchants.get(key));
+		if (ResPwn.respawnWieldEnchants.get("use").equals(true)) {
+			Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnWieldEnchants.keySet()) 
+			{
+				if (!key.equals("use"))  
+				{
+					wieldEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnWieldEnchants.get(key));
+				}
+			}
+			// Now set the enchants
+			getwield.addEnchantments(wieldEnchants);
 		}
-		// Now set the enchants
-		getwield.addEnchantments(wieldEnchants);
 		
 		// Set lore and display name item meta
 		if(getwield.hasItemMeta()) 
@@ -172,8 +180,6 @@ public class Inventory extends ResPwn
 		//p.getInventory().setItemInOffHand(something);
 	}
 	
-
-
 	// We'll set off hand wielded item here
 	public static void ResOffhand(Player p, World w) 
 	{
@@ -201,13 +207,18 @@ public class Inventory extends ResPwn
 		ItemStack getwield = new ItemStack(Material.getMaterial(ResPwn.respawnOffhand));
 		
 		// Get the enchants
-		Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
-		for (String key : ResPwn.respawnOffhandEnchants.keySet()) 
-		{
-			wieldEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnOffhandEnchants.get(key));
+		if (ResPwn.respawnOffhandEnchants.get("use").equals(true)) {
+			Map<Enchantment, Integer> wieldEnchants = new HashMap<Enchantment, Integer>();
+			for (String key : ResPwn.respawnOffhandEnchants.keySet()) 
+			{
+				if (!key.equals("use")) 
+				{
+					wieldEnchants.put(Enchantment.getByName(key), (Integer) ResPwn.respawnOffhandEnchants.get(key));
+				}
+			}
+			// Now set the enchants
+			getwield.addEnchantments(wieldEnchants);
 		}
-		// Now set the enchants
-		getwield.addEnchantments(wieldEnchants);
 		
 		// Set lore and display name item meta
 		if(getwield.hasItemMeta()) 

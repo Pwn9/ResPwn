@@ -41,6 +41,7 @@ respawn_armor:
         use: false
         type: LEATHER_BOOTS
         enchants: 
+            use: false
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Boots"
         lore: 
@@ -50,6 +51,7 @@ respawn_armor:
         use: false
         type: LEATHER_HELMET
         enchants: 
+            use: false
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Helm"
         lore: 
@@ -59,6 +61,7 @@ respawn_armor:
         use: false
         type: LEATHER_LEGGINGS
         enchants: 
+            use: false
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Pants"
         lore: 
@@ -68,6 +71,7 @@ respawn_armor:
         use: false
         type: LEATHER_CHESTPLATE
         enchants: 
+            use: false
             PROTECTION_ENVIRONMENTAL: 1
         name: "Starter Vest"
         lore: 
@@ -79,16 +83,19 @@ respawn_wield:
     use: false
     item: WOOD_SWORD
     enchants: 
+        use: false
         KNOCKBACK: 1
     name: "Starter Sword"
     lore:
         - "Starter sword lore"
 
-# Player item in MAIN hand on respawn - use official item names only!
+# Player item in OFF hand on respawn - use official item names only! 
 respawn_offhand: 
     use: false
     item: TORCH
-    enchants: []
+    enchants: 
+        use: false
+        KNOCKBACK: 1
     name: "A light"
     lore:
         - "in case it's dark out"

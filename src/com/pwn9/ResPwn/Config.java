@@ -52,24 +52,28 @@ public class Config
 		
 		// Armor
 		ResPwn.respawnBoots = ResPwn.instance.getConfig().getString("respawn_armor.boots.type", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants
 		ResPwn.respawnBootsEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_armor.boots.enchants").getValues(false);
 		ResPwn.respawnBootsName = ResPwn.instance.getConfig().getString("respawn_armor.boots.name");
 		ResPwn.respawnBootsLore = ResPwn.instance.getConfig().getStringList("respawn_armor.boots.lore");
 		ResPwn.respawnBootsColor = ResPwn.instance.getConfig().getString("respawn_armor.boots.color", "none");
 		
 		ResPwn.respawnHelm = ResPwn.instance.getConfig().getString("respawn_armor.helm.type", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants
 		ResPwn.respawnHelmEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_armor.helm.enchants").getValues(false);
 		ResPwn.respawnHelmName = ResPwn.instance.getConfig().getString("respawn_armor.helm.name");
 		ResPwn.respawnHelmLore = ResPwn.instance.getConfig().getStringList("respawn_armor.helm.lore");
 		ResPwn.respawnHelmColor = ResPwn.instance.getConfig().getString("respawn_armor.helm.color", "none");
 		
 		ResPwn.respawnPants = ResPwn.instance.getConfig().getString("respawn_armor.pants.type", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants
 		ResPwn.respawnPantsEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_armor.pants.enchants").getValues(false);
 		ResPwn.respawnPantsName = ResPwn.instance.getConfig().getString("respawn_armor.pants.name");		
 		ResPwn.respawnPantsLore = ResPwn.instance.getConfig().getStringList("respawn_armor.pants.lore");
 		ResPwn.respawnPantsColor = ResPwn.instance.getConfig().getString("respawn_armor.pants.color", "none");
 		
 		ResPwn.respawnPlate = ResPwn.instance.getConfig().getString("respawn_armor.plate.type", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants		
 		ResPwn.respawnPlateEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_armor.plate.enchants").getValues(false);
 		ResPwn.respawnPlateName = ResPwn.instance.getConfig().getString("respawn_armor.plate.name");
 		ResPwn.respawnPlateLore = ResPwn.instance.getConfig().getStringList("respawn_armor.plate.lore");
@@ -77,12 +81,14 @@ public class Config
 		
 		// Item in main hand
 		ResPwn.respawnWield = ResPwn.instance.getConfig().getString("respawn_wield.item", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants		
 		ResPwn.respawnWieldEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_wield.enchants").getValues(false);
 		ResPwn.respawnWieldName = ResPwn.instance.getConfig().getString("respawn_wield.name");
 		ResPwn.respawnWieldLore = ResPwn.instance.getConfig().getStringList("respawn_wield.lore");
 
 		// Item in off hand
 		ResPwn.respawnOffhand = ResPwn.instance.getConfig().getString("respawn_offhand.item", "none");
+		//FIXME - Empty configuration sections will cause an NPE here - need a way to NOT SET any enchants
 		ResPwn.respawnOffhandEnchants = ResPwn.instance.getConfig().getConfigurationSection("respawn_offhand.enchants").getValues(false);
 		ResPwn.respawnOffhandName = ResPwn.instance.getConfig().getString("respawn_offhand.name");
 		ResPwn.respawnOffhandLore = ResPwn.instance.getConfig().getStringList("respawn_offhand.lore");
