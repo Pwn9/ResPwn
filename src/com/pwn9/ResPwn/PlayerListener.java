@@ -44,7 +44,7 @@ public class PlayerListener implements Listener
 		Health.setResHunger(p, w);
 		
 		// Armor & Inventory Stuff
-		if (!Shield.isShielded(e)) 
+		if (!Shield.isShielded(e) || p.hasPermission("respwn.nodelay")) 
 		{
 			Boolean sendMsg = false;
 			
@@ -69,6 +69,11 @@ public class PlayerListener implements Listener
 				sendMsg = true;
 			}
 			
+			if (p.hasPermission("respwn.nodelay")) 
+			{
+				sendMsg = false;
+			}
+				
 			if (sendMsg)
 			{
 				String puuid = p.getUniqueId().toString() + ".ArmorTime";

@@ -53,25 +53,21 @@ public class Inventory extends ResPwn
 		}
 		
 		// Set lore and display name item meta
-		if(getItem.hasItemMeta()) 
+		// create item meta variable
+		ItemMeta im = getItem.getItemMeta();
+		// if it's leather we can set the color
+		if((im instanceof LeatherArmorMeta) && (itemColor != "none")) 
 		{
-			// create item meta variable
-			ItemMeta im = getItem.getItemMeta();
-			// if it's leather we can set the color
-			if((im instanceof LeatherArmorMeta) && (itemColor != "none")) 
-			{
-				((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(itemColor)));
-			}
-			// set item meta display name
-			im.setDisplayName(itemName);
-			// set item meta lore
-			im.setLore(itemLore);
-			// put updated item meta on item
-			getItem.setItemMeta(im);				
+			((LeatherArmorMeta) im).setColor(Color.fromRGB(Integer.decode(itemColor)));
 		}
+		// set item meta display name
+		im.setDisplayName(itemName);
+		// set item meta lore
+		im.setLore(itemLore);
+		// put updated item meta on item
+		getItem.setItemMeta(im);				
 			
-		return getItem;
-			
+		return getItem;	
 	}
 	
 	// We'll set armors here
@@ -115,7 +111,6 @@ public class Inventory extends ResPwn
 		if (ResPwn.respawnPlateUse) {
 			pi.setChestplate(Inventory.SetArmors(ResPwn.respawnPlate, ResPwn.respawnPlateEnchants, ResPwn.respawnPlateColor, ResPwn.respawnPlateName, ResPwn.respawnPlateLore));
 		}
-		
 	}
 
 	// We'll set wielded item here
@@ -159,25 +154,19 @@ public class Inventory extends ResPwn
 		}
 		
 		// Set lore and display name item meta
-		if(getwield.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = getwield.getItemMeta();
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnWieldName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnWieldLore);
-			// put updated item meta on item
-			getwield.setItemMeta(im);
-		}
+		// create item meta variable
+		ItemMeta im = getwield.getItemMeta();
+		// set item meta display name
+		im.setDisplayName(ResPwn.respawnWieldName);
+		// set item meta lore
+		im.setLore(ResPwn.respawnWieldLore);
+		// put updated item meta on item
+		getwield.setItemMeta(im);
 		
 		// Set active slot to slot 0, in case we want to give them other items in the hotbar someday
 		pi.setHeldItemSlot(0);
 		// Give player a wielded item
 		pi.setItemInMainHand(getwield);
-
-		// we could set the offhand now too..
-		//p.getInventory().setItemInOffHand(something);
 	}
 	
 	// We'll set off hand wielded item here
@@ -221,17 +210,14 @@ public class Inventory extends ResPwn
 		}
 		
 		// Set lore and display name item meta
-		if(getwield.hasItemMeta()) 
-		{
-			// create item meta variable
-			ItemMeta im = getwield.getItemMeta();
-			// set item meta display name
-			im.setDisplayName(ResPwn.respawnOffhandName);
-			// set item meta lore
-			im.setLore(ResPwn.respawnOffhandLore);
-			// put updated item meta on item
-			getwield.setItemMeta(im);
-		}
+		// create item meta variable
+		ItemMeta im = getwield.getItemMeta();
+		// set item meta display name
+		im.setDisplayName(ResPwn.respawnOffhandName);
+		// set item meta lore
+		im.setLore(ResPwn.respawnOffhandLore);
+		// put updated item meta on item
+		getwield.setItemMeta(im);
 		
 		// Give player an off hand item
 		pi.setItemInOffHand(getwield);
