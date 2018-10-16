@@ -2,6 +2,7 @@
 enabled_worlds:
   - example_world
   - example_world_nether
+  - example_world_the_end
   
 # Message prefix, for messages sent to players by the plugin
 # Available colors: AQUA, BLACK, BLUE, DARK_AQUA, DARK_BLUE, DARK_GRAY, DARK_GREEN, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, WHITE, YELLOW
