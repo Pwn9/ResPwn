@@ -4,6 +4,7 @@ version: 1.4
 author: tremor77
 description: Player respawn timer with various settings for gameplay.
 website: http://pwn9.com
+api-version: 1.13
 permissions:
   respwn.shield: 
     description: Player will receive ResPwn combat shield
